@@ -19,7 +19,7 @@ export default {
     },
     pages: {
         homeHTML: 'home/index.html',
-        controller: 'controller/index.html'
+        controllerHTML: 'controller/index.html'
     },
     location: {
         home: '/home'

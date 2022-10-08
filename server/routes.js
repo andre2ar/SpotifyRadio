@@ -26,7 +26,7 @@ async function routes(request, response) {
     if(method === 'GET' && url === '/controller') {
         const {
             stream
-        } = await controller.getFileStream(config.pages.controller)
+        } = await controller.getFileStream(config.pages.controllerHTML)
 
         return stream.pipe(response)
     }
