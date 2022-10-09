@@ -10,8 +10,7 @@
     "test": "LOG_DISABLED=true NODE_OPTIONS=--experimental-vm-modules jest --no-cache",
     "test:watch": "LOG_DISABLED=true NODE_OPTIONS=--experimental-vm-modules jest --no-cache --watchAll",
     "test:coverage": "LOG_DISABLED=true NODE_OPTIONS=--experimental-vm-modules jest --no-cache --coverage tests/unit",
-
-    "live-reload:docker": "docker-compose up live-reload"
+    "live-reload:docker": "docker-compose up --build live-reload"
   },
   "engines": {
     "node": "18"
@@ -35,6 +34,7 @@
   },
   "dependencies": {
     "pino": "^8.6.1",
-    "pino-pretty": "^9.1.1"
+    "pino-pretty": "^9.1.1",
+    "throttle": "^1.0.3"
   }
 }

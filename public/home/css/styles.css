@@ -309,6 +309,11 @@ body {
   align-items: center;
   width: 30%;
 }
+
+.audio-player audio {
+  display: none;
+}
+
 .audio-player .player-controls {
   display: flex;
   flex-direction: column;

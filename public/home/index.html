@@ -51,8 +51,8 @@
             <i class="fas fa-chevron-right container__section__arrow hide"></i>
           </div>
           <div class="container__section__user">
-            <img src="./home/assets/user-eg.jpg" alt="user" />
-            Erick Wendel
+            <img src="https://github.com/andre2ar.png" alt="user" />
+            André Ribeiro
           </div>
         </div>
 
@@ -62,8 +62,8 @@
           </div>
           <div class="container__section__radio-header__infos">
             <p>radio</p>
-            <h1>JS Expert Week 6.0</h1>
-            <h3 class="hide">with Erick Wendel</h3>
+            <h1>JS Expert</h1>
+            <h3 class="hide">with André Ribeiro</h3>
           </div>
         </div>
 
@@ -141,13 +141,13 @@
         </div>
         <div>
           <p>Node.js audio processing</p>
-          <p>Erick Wendel</p>
+          <p>André Ribeiro</p>
         </div>
         <i class="fas fa-heart hide"></i>
       </div>
 
       <div class="audio-player">
-        <audio id="audio" preload="none" controls autoplay src="./home/../home/../home/audio/songs/conversation.mp3"></audio>
+        <audio id="audio" preload="none" controls autoplay></audio>
 
         <div class="player-controls">
           <div class="player__actions">
@@ -170,9 +170,16 @@
     </div>
     <div class="device-bar hide">
       <i class="fas fa-volume-up"></i>
-      <p>Listening on Erick Wendel</p>
+      <p>Listening on André Ribeiro</p>
     </div>
     <script src="./home/js/animation.js"></script>
+
+    <script>
+      window.onload = () => {
+        // Prevent audio cache
+        document.getElementById('audio').src = '/stream?id=' + Date.now();
+      }
+    </script>
   </body>
 
 </html>
