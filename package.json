@@ -10,7 +10,12 @@
     "test": "LOG_DISABLED=true NODE_OPTIONS=--experimental-vm-modules jest --no-cache",
     "test:watch": "LOG_DISABLED=true NODE_OPTIONS=--experimental-vm-modules jest --no-cache --watchAll",
     "test:coverage": "LOG_DISABLED=true NODE_OPTIONS=--experimental-vm-modules jest --no-cache --coverage tests/unit",
-    "live-reload:docker": "docker-compose up --build live-reload"
+    "test:e2e": "LOG_DISABLED=true NODE_OPTIONS=--experimental-vm-modules jest --no-cache tests/e2e",
+
+    "live-reload:docker": "docker-compose up --build live-reload",
+    "test:docker": "docker-compose up --build test",
+    "test:watch:docker": "docker-compose up --build test-watch",
+    "test:coverage:docker": "docker-compose up --build test-coverage"
   },
   "engines": {
     "node": "18"
@@ -30,7 +35,9 @@
     "@jest/globals": "^29.1.2",
     "jest": "^29.1.2",
     "jest-environment-jsdom": "^29.1.2",
-    "nodemon": "^2.0.20"
+    "nodemon": "^2.0.20",
+    "portfinder": "^1.0.32",
+    "supertest": "^6.3.0"
   },
   "dependencies": {
     "pino": "^8.6.1",
