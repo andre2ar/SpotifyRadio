@@ -8,6 +8,7 @@ describe('#Routes', () => {
     beforeEach(() => {
         jest.resetAllMocks()
         jest.clearAllMocks()
+        jest.restoreAllMocks()
     })
 
     test('GET / - should redirect to homepage', async () => {
@@ -140,7 +141,6 @@ describe('#Routes', () => {
         params.request.method = 'POST'
         params.request.url = '/unknown'
 
-
         await handler(...params.values())
 
         expect(params.response.writeHead).toHaveBeenCalledWith(404)
@@ -165,7 +165,7 @@ describe('#Routes', () => {
             expect(params.response.end).toHaveBeenCalled()
         })
 
-        test('Given an error it should repond with 404', async () => {
+        test('Given an error it should repond with 500', async () => {
             const params = TestUtil.defaultHandleParams()
             params.request.method = 'GET'
             params.request.url = '/index.png'
@@ -174,7 +174,6 @@ describe('#Routes', () => {
                 Controller.prototype,
                 Controller.prototype.getFileStream.name
             ).mockRejectedValue(new Error('Error'))
-
 
             await handler(...params.values())
 
