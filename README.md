@@ -2,9 +2,8 @@
 
 ## Preview
 
-<img src="./prints/demo.png" />
 
-### Créditos aos áudios usados
+### Audio Credits
 
 #### Broadcasted audio 
 - [English Conversation](https://youtu.be/ytmMipczEI8)
