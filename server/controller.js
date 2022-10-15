@@ -21,6 +21,11 @@ export default class Controller {
             this.service.startStream()
         } else if(cmd.includes('stop')) {
             this.service.stopStream()
+        } else {
+            const chosenFx = await this.service.readFxByName(cmd)
+            logger.info(`Added FX: ${chosenFx}`)
+
+            this.service.appendFxStream(chosenFx)
         }
 
         return result

@@ -1,7 +1,7 @@
 import fs from "fs";
 import config from "./config.js";
 import {randomUUID} from "crypto";
-import {join, extname} from "path";
+import path, {join, extname} from "path";
 import {PassThrough, Writable} from "stream";
 import Throttle from "throttle";
 import childProcess from "child_process";
@@ -135,5 +135,71 @@ export class Service {
             stream: this.createFileStream(name),
             type
         }
+    }
+
+    async readFxByName(fxName) {
+        const songs = await fs.promises.readdir(config.dir.fxDirectory)
+        const chosenSong = songs.find(filename => filename.toLowerCase().includes(fxName))
+
+        if(!chosenSong) {
+            return Promise.reject(`Song ${fxName} couldn't be found`)
+        }
+
+        return path.join(config.dir.fxDirectory, chosenSong)
+    }
+
+    appendFxStream(fx) {
+        const throttleTransformable = new Throttle(this.currentBitRate)
+        streamPromises.pipeline(
+            throttleTransformable,
+            this.broadCast()
+        )
+
+        const unpipe = () => {
+            const transformStream = this.mergeAudioStream(fx, this.currentReadable)
+            this.throttleTransform = throttleTransformable
+            this.currentReadable = transformStream
+            this.currentReadable.removeListener('unpipe', unpipe)
+
+            streamPromises.pipeline(
+                transformStream,
+                throttleTransformable
+            )
+        }
+
+        this.throttleTransform.on('unpipe', unpipe)
+        this.throttleTransform.pause()
+        this.currentReadable.unpipe(this.throttleTransform)
+    }
+
+    mergeAudioStream(song, readable) {
+        const transformStream = PassThrough()
+        const args = [
+            '-t', config.constants.audioMediaType,
+            '-v', config.constants.songVolume,
+            '-m', '-',
+            '-t', config.constants.audioMediaType,
+            '-v', config.constants.fxVolume,
+            song,
+            '-t', config.constants.audioMediaType,
+            '-'
+        ]
+
+        const {
+            stdout,
+            stdin
+        } = this._executeCommand(args)
+
+        streamPromises.pipeline(
+            readable,
+            stdin
+        )
+
+        streamPromises.pipeline(
+            stdout,
+            transformStream
+        )
+
+        return transformStream
     }
 }
