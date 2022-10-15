@@ -21,8 +21,6 @@ export default class Controller {
             this.service.startStream()
         } else if(cmd.includes('stop')) {
             this.service.stopStream()
-        } else {
-            result.sucess = false
         }
 
         return result
